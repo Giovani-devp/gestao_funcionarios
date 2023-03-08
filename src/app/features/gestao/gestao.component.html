@@ -1,0 +1,38 @@
+<mat-toolbar>
+  <span mat-icon-button (click)="isExpanded = !isExpanded">
+    <mat-icon class="mat-icon-menu">menu</mat-icon>
+  </span>
+  <h1 class="title">Controle de funcionarios</h1>
+  <span class="example-fill-remaining-space"></span>
+  <span class="menu-leave">
+    <a (click)="goOut()" title="Sair"> <i class="bi bi-box-arrow-right"></i> Sair </a>
+  </span>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container" autosize>
+
+  <mat-sidenav #drawer class="example-sidenav" [mode]="isScreenSmall() ? 'over' : 'side'" [opened]="!isScreenSmall()" (mouseenter)="mouseenter()"
+    (mouseleave)="mouseleave()">
+    <mat-nav-list>
+
+      <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+        <span class="full-width" *ngIf="isExpanded || isShowing">Menu Principal</span>
+        <mat-icon mat-list-icon class="mat-icon-home">home</mat-icon>
+        <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}"
+          *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+      </mat-list-item>
+
+      <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+        <a mat-list-item [routerLink]="['/dashboard/filtros-gerais']" routerLinkActive="router-link-active">
+          Filtros
+        </a>
+      </div>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <app-form-filtros></app-form-filtros>
+
+  <app-filtro-funcionario></app-filtro-funcionario>
+
+</mat-sidenav-container>

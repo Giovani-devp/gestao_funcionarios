@@ -1,0 +1,133 @@
+<mat-expansion-panel [expanded]="false" class="mx-auto mt-4">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <span> <b>Filtrar por funcionários</b></span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="card mx-auto card-body bg-light">
+
+    <div class="container">
+
+      <form id="contact-form" role="form" [formGroup]="formFuncionario">
+
+        <div class="controls">
+
+          <div class="row mb-4">
+
+            <div class="col-md-6">
+
+              <div class="form-group">
+
+                <label for="form_trace_id">Nome do recurso:</label>
+
+                <input id="form_trace_id" type="text" name="trace_id" class="form-control"
+                  placeholder="ex.: Fulano da Silva" formControlName="recurso">
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+
+            <button class="btn btn-outline-primary me-md-2 btn-send btn-block" (click)="onClickSearch()">
+              <i class="bi bi-search"></i>
+              Buscar
+            </button>
+
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <ng-container *ngIf="resultado">
+
+    <div class="table-responsive mt-4 mb-3">
+
+      <table class="table table-hover table-bordered" aria-label="Elements">
+        <thead>
+          <tr>
+            <th class="text-center">Task</th>
+            <th class="text-center">Funcionário</th>
+            <th class="text-center">Titulo</th>
+            <th class="text-center">Hora Estimada</th>
+            <th class="text-center">Hora Registrada</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" *ngFor="let task of resultado | paginate
+          : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count
+            }">
+
+            <td> {{ task?.task }}</td>
+
+            <td> {{ task?.recurso }}</td>
+
+            <td matTooltip="{{ task?.userStory }}"> {{ task?.userStory | slice:0:20 }}{{ task?.userStory.length > 20 ? '...' : '' }}</td>
+
+            <td> {{ task?.horaEstimada }}</td>
+
+            <td> {{task?.horaRegistrada }}</td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+      <span *ngIf="somaHoraEstimada">
+        Total Horas Estimadas: 
+          <b>
+            {{ somaHoraEstimada }}
+          </b>
+      </span>
+      |
+      <span *ngIf="somahoraRegistrada">
+        Total Horas Registradas: 
+          <b>
+            {{ somahoraRegistrada }}
+          </b>
+      </span>
+
+    </div>
+
+    <div class="loading" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div class="container">
+      <pagination-template class="row justify-content-end mb-3" #pagination="paginationApi"
+        (pageChange)="page = $event">
+
+        <div class="col-md-5">
+          <span>Itens por página</span>
+          <select [ngModel]="tableSize" (change)="changePaginationSize($any($event).target.value)">
+            <option [value]="table" *ngFor="let table of tableSizes">
+              {{table}}
+            </option>
+          </select>
+          <span>Página {{page}} de {{lastPage}}</span>
+          <span [class.disabled]="pagination.isFirstPage()" style="margin-left: 1%;">
+            <a *ngIf="!pagination.isFirstPage()" class="btn btn-outline-primary btn-sm" (click)="pagination.previous()">
+              Anterior</a>
+          </span>
+          <span [class.disabled]="pagination.isLastPage()" style="margin-left: 1%;">
+            <a *ngIf="!pagination.isLastPage()" class="btn btn-outline-primary btn-sm" (click)="pagination.next()">
+              Próximo</a>
+          </span>
+        </div>
+      </pagination-template>
+    </div>
+  </ng-container>
+
+
+</mat-expansion-panel>

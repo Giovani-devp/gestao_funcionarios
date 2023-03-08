@@ -1,0 +1,69 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+h1 {
+  margin-bottom: 40px;
+}
+
+label {
+  color: #333;
+  margin-bottom: 7px;
+}
+
+mat-expansion-panel {
+  width: 97%;
+}
+
+.h6__subtitles {
+  color: rgb(141, 141, 141);
+}
+
+.div__filtros {
+  outline: 1px solid rgb(210, 210, 210);
+  border-radius: 2px;
+  height: 35px;
+}
+
+.form-control:focus {
+  border-color: #bebebe;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(50, 109, 212, 0.7);
+}
+
+.btn-reset {
+  font-weight: 200;
+}
+
+.btn-send {
+  font-weight: 200;
+  min-width: 20%;
+  max-width: 100%;
+}
+
+
+.mat-expansion-panel {
+  box-sizing: border-box;
+  border-bottom: none
+}
+
+
+::ng-deep .success-snack-bar {
+  color: #fff;
+  font-size: 16px;
+  background-color: green !important;
+}
+
+.card {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+  min-height: 100vh;
+}

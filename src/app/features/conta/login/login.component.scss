@@ -1,0 +1,53 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
+.errspan {
+  float: left;
+  margin-left: 10px;
+  margin-top: -27px;
+  position: relative;
+}
+
+input {
+  padding-left: 32px;
+}
+
+button {
+  background: #FF2499;
+  border-color: #FF2499;
+}
+
+button:hover {
+  background: #d90074;
+  border-color: #d90074;
+}
+
+button:active {
+  box-shadow: none;
+  background: #d90074 !important;
+}
+
+.invalid-feedback {
+  color: #ff0000;
+}
+
+.logo {
+  width: 120px;
+  height: 50px;
+}
+
+.card {
+  background: #40414a;
+}
+
+input:focus+.fa {
+  color: #d90074;
+}
+
+.card {
+  box-shadow: 4px 2px 16px rgba(11, 11, 11, 0.25);
+}
+
+.form-control:focus {
+  border-color: #d90074;
+  box-shadow: none !important;
+}

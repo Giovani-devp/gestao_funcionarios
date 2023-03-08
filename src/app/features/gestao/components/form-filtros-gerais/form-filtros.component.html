@@ -1,0 +1,275 @@
+<mat-expansion-panel [(expanded)]="panelExpandido" class="mx-auto mt-3">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <span><b>Filtros Gerais</b></span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="card mx-auto card-body bg-light">
+
+    <div class="container">
+
+      <form id="contact-form" role="form" [formGroup]="formFilters">
+
+        <div class="controls">
+
+          <div class="row mb-4">
+
+            <div class="col-md-3">
+
+              <div class="form-group">
+
+                <label for="form_trace_id">Task:</label>
+
+                <input id="form_trace_id" type="text" name="trace_id" class="form-control" placeholder="ex.: 4592"
+                  formControlName="task">
+
+              </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+              <div class="form-group">
+
+                <label for="form_session_id">Empresa:</label>
+
+                <input id="form_session_id" type="text" name="session_id" class="form-control" placeholder="ex.: Unidas"
+                  formControlName="empresa">
+
+              </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+              <div class="form-group">
+
+                <label for="form_method">Status Task:</label>
+
+                <select id="form_method" name="method" class="form-control form-select" formControlName="statusTask">
+
+                  <option value="" selected disabled>Selecione...</option>
+                  <option value="Active">Active</option>
+                  <option value="Resolved">Resolved</option>
+                  <option value="Closed">Closed</option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+              <div class="form-group">
+
+                <label for="form_session_id">Aprovador:</label>
+
+                <input id="form_session_id" type="text" name="session_id" class="form-control"
+                  placeholder="ex.: Nome da pessoa" formControlName="aprovador">
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <h6 class="h6__subtitles">
+            Filtros Avançados - <a (click)="toggle()" href="javascript://">{{ buttonName }}</a>
+          </h6>
+
+          <hr>
+
+          <ng-container *ngIf="show">
+
+            <div class="row mt-4">
+              <div class="col-md-3">
+
+                <div class="form-group">
+
+                  <label for="form_date_first">Criacao da Task:</label>
+
+                  <input readonly placeholder="DD/MM/AAAA" matInput [matDatepicker]="firstDatePicker"
+                    (click)="firstDatePicker.open()" class="form-control" id="form_date_first"
+                    formControlName="criacaoTask" />
+
+                  <mat-datepicker #firstDatePicker>
+                  </mat-datepicker>
+
+                </div>
+
+              </div>
+
+              <div class="col-md-3">
+
+                <div class="form-group">
+
+                  <label for="form_date_second">Data Ativação:</label>
+
+                  <input readonly placeholder="DD/MM/AAAA" matInput [matDatepicker]="secondDatePicker"
+                    (click)="secondDatePicker.open()" class="form-control" id="form_date_second"
+                    formControlName="dataAtivacao" />
+
+                  <mat-datepicker #secondDatePicker>
+                  </mat-datepicker>
+
+                </div>
+
+              </div>
+
+              <div class="col-md-3">
+
+                <div class="form-group">
+
+                  <label for="form_date_third">Data Resolvido:</label>
+
+                  <input readonly placeholder="DD/MM/AAAA" matInput [matDatepicker]="thirdDatePicker"
+                    (click)="thirdDatePicker.open()" class="form-control" id="form_date_third"
+                    formControlName="dataResolvido" />
+
+                  <mat-datepicker #thirdDatePicker>
+                  </mat-datepicker>
+
+                </div>
+
+              </div>
+
+              <div class="col-md-3">
+
+                <div class="form-group">
+
+                  <label for="form_date_forty">Data Fechado:</label>
+
+                  <input readonly placeholder="DD/MM/AAAA" matInput [matDatepicker]="fortyDatePicker"
+                    (click)="fortyDatePicker.open()" class="form-control" id="form_date_forty"
+                    formControlName="dataFechado" />
+
+                  <mat-datepicker #fortyDatePicker>
+                  </mat-datepicker>
+
+                </div>
+
+              </div>
+            </div>
+
+          </ng-container>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+
+            <button class="btn btn-outline-warning me-md-2 btn-reset" (click)="resetForm()">
+              <i class="bi bi-eraser"></i>
+              Limpar
+            </button>
+
+            <button class="btn btn-outline-primary me-md-2 btn-send btn-block" (click)="onClickSearch()">
+              <i class="bi bi-search"></i>
+              Buscar
+            </button>
+
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <ng-container *ngIf="resultado">
+    <hr>
+    <div class="container row mt-4">
+      <div class="col-md-6">
+        <div class="position-relative">
+          <input type="text" class="form-control" placeholder="Busque na tabela" [(ngModel)]="searchText" />
+          <i class="bi bi-search position-absolute end-0 me-2" style="top: 50%; transform: translateY(-50%);"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive mt-4 mb-3">
+
+      <table class="table table-hover table-bordered" aria-label="Elements">
+        <thead>
+          <tr>
+            <th class="text-center">Task</th>
+            <th class="text-center">Empresa</th>
+            <th class="text-center">Projeto/Sprint</th>
+            <th class="text-center">User Story</th>
+            <th class="text-center">Aprovador</th>
+            <th class="text-center">Recurso</th>
+            <th class="text-center">Criacao Task</th>
+            <th class="text-center">Data Ativacao</th>
+            <th class="text-center">Data Resolvido</th>
+            <th class="text-center">Data Fechado</th>
+            <th class="text-center">Status Task</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="text-center" *ngFor="let task of (resultado | gridFilter: searchText: false)
+          | paginate
+            : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count
+              }">
+            <td>{{ task.task }}</td>
+            <td>{{ task.empresa }}</td>
+            <td matTooltip="{{ task?.projeto }}">
+              {{ task?.projeto | slice:0:18 }}{{ task?.projeto.length > 18 ? '...' : '' }}
+            </td>
+            <td matTooltip="{{ task?.userStory }}">
+              {{ task?.userStory | slice:0:20 }}{{ task?.userStory.length > 20 ? '...' : '' }}
+            </td>
+            <td>{{task?.aprovador }}</td>
+            <td>{{task?.recurso }}</td>
+            <td>{{ task.criacaoTask }}</td>
+            <td>{{ task.dataAtivacao }}</td>
+            <td>{{ task.dataResolvido }}</td>
+            <td>{{ task.dataFechado }}</td>
+            <td>{{ task?.statusTask }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <pagination-template class="row justify-content-end mb-3" #pagination="paginationApi"
+        (pageChange)="page = $event">
+
+        <div class="col-md-5">
+          <span class="">Itens por página
+            <select [ngModel]="tableSize" (change)="changePaginationSize($any($event).target.value)" class="">
+              <option [value]="size" *ngFor="let size of tableSizes">
+                {{size}}
+              </option>
+            </select>
+          </span>
+          Página {{page}} de {{lastPage}}
+
+          <span class="" [class.disabled]="pagination.isFirstPage()">
+            <a *ngIf="!pagination.isFirstPage()" class="btn btn-outline-primary btn-sm "
+              (click)="pagination.previous()">
+              Anterior </a>
+          </span>
+          &nbsp;
+          <span class="" [class.disabled]="pagination.isLastPage()">
+            <a *ngIf="!pagination.isLastPage()" class="btn btn-outline-primary btn-sm " (click)="pagination.next()">
+              Próxima
+            </a>
+          </span>
+
+        </div>
+
+      </pagination-template>
+
+    </div>
+
+
+  </ng-container>
+  <ng-template #isLoading>
+    <div class="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+
+</mat-expansion-panel>
