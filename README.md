@@ -1,5 +1,5 @@
 <h1>Formulário de filtro de funcionários</h1>
-<p>Este projeto Angular é um formulário que permite filtrar dados de funcionários de uma API.</p>
+<p>Este projeto Angular é um formulário que permite filtrar dados de funcionários de um mock.</p>
 <h2>Requisitos</h2>
 <ul>
   <li>Node.js e npm instalados em sua máquina</li>
